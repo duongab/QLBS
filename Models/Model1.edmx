@@ -1,0 +1,479 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="QLBSDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Chitietdonhangs">
+          <Key>
+            <PropertyRef Name="soluong" />
+          </Key>
+          <Property Name="soluong" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="madh" Type="varchar" MaxLength="128" />
+          <Property Name="masach" Type="varchar" MaxLength="128" />
+          <Property Name="dongia" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Chudes">
+          <Key>
+            <PropertyRef Name="machude" />
+          </Key>
+          <Property Name="machude" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="tenchude" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Donhangs">
+          <Key>
+            <PropertyRef Name="madh" />
+          </Key>
+          <Property Name="madh" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="tinhtrangdonhang" Type="varchar(max)" />
+          <Property Name="ngaydat" Type="varchar(max)" />
+          <Property Name="ngaygiao" Type="varchar(max)" />
+          <Property Name="makh" Type="varchar" MaxLength="128" />
+        </EntityType>
+        <EntityType Name="Khachhangs">
+          <Key>
+            <PropertyRef Name="makh" />
+          </Key>
+          <Property Name="makh" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="tenkh" Type="varchar(max)" />
+          <Property Name="taikhoan" Type="varchar(max)" />
+          <Property Name="matkhau" Type="varchar(max)" />
+          <Property Name="email" Type="varchar(max)" />
+          <Property Name="diachi" Type="varchar(max)" />
+          <Property Name="dienthoai" Type="varchar" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="Nhaxuatbans">
+          <Key>
+            <PropertyRef Name="manxb" />
+          </Key>
+          <Property Name="manxb" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="tennxb" Type="varchar(max)" />
+          <Property Name="diachi" Type="varchar(max)" />
+          <Property Name="dienthoai" Type="varchar" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="Sachs">
+          <Key>
+            <PropertyRef Name="masach" />
+          </Key>
+          <Property Name="masach" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="tensach" Type="varchar(max)" />
+          <Property Name="giaban" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="mota" Type="varchar(max)" />
+          <Property Name="anhbia" Type="nvarchar" MaxLength="50" />
+          <Property Name="ngaycapnhat" Type="datetime" />
+          <Property Name="soluongton" Type="varchar(max)" />
+          <Property Name="manxb" Type="varchar" MaxLength="128" />
+          <Property Name="machude" Type="varchar" MaxLength="128" />
+        </EntityType>
+        <EntityType Name="Tacgias">
+          <Key>
+            <PropertyRef Name="matacgia" />
+          </Key>
+          <Property Name="matacgia" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="tentacgia" Type="varchar(max)" />
+          <Property Name="diachi" Type="varchar(max)" />
+          <Property Name="dienthoai" Type="varchar" MaxLength="15" />
+        </EntityType>
+        <Association Name="FK_dbo_Chitietdonhangs_dbo_Donhangs_madh">
+          <End Role="Donhangs" Type="Self.Donhangs" Multiplicity="0..1" />
+          <End Role="Chitietdonhangs" Type="Self.Chitietdonhangs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Donhangs">
+              <PropertyRef Name="madh" />
+            </Principal>
+            <Dependent Role="Chitietdonhangs">
+              <PropertyRef Name="madh" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Chitietdonhangs_dbo_Sachs_masach">
+          <End Role="Sachs" Type="Self.Sachs" Multiplicity="0..1" />
+          <End Role="Chitietdonhangs" Type="Self.Chitietdonhangs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sachs">
+              <PropertyRef Name="masach" />
+            </Principal>
+            <Dependent Role="Chitietdonhangs">
+              <PropertyRef Name="masach" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Donhangs_dbo_Khachhangs_Khachhang_makh">
+          <End Role="Khachhangs" Type="Self.Khachhangs" Multiplicity="0..1" />
+          <End Role="Donhangs" Type="Self.Donhangs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Khachhangs">
+              <PropertyRef Name="makh" />
+            </Principal>
+            <Dependent Role="Donhangs">
+              <PropertyRef Name="makh" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Sachs_dbo_Chudes_machude">
+          <End Role="Chudes" Type="Self.Chudes" Multiplicity="0..1" />
+          <End Role="Sachs" Type="Self.Sachs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Chudes">
+              <PropertyRef Name="machude" />
+            </Principal>
+            <Dependent Role="Sachs">
+              <PropertyRef Name="machude" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Sachs_dbo_Nhaxuatbans_manxb">
+          <End Role="Nhaxuatbans" Type="Self.Nhaxuatbans" Multiplicity="0..1" />
+          <End Role="Sachs" Type="Self.Sachs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Nhaxuatbans">
+              <PropertyRef Name="manxb" />
+            </Principal>
+            <Dependent Role="Sachs">
+              <PropertyRef Name="manxb" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="QLBSDbModelStoreContainer">
+          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Chitietdonhangs" EntityType="Self.Chitietdonhangs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Chudes" EntityType="Self.Chudes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Donhangs" EntityType="Self.Donhangs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Khachhangs" EntityType="Self.Khachhangs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Nhaxuatbans" EntityType="Self.Nhaxuatbans" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sachs" EntityType="Self.Sachs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tacgias" EntityType="Self.Tacgias" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_dbo_Chitietdonhangs_dbo_Donhangs_madh" Association="Self.FK_dbo_Chitietdonhangs_dbo_Donhangs_madh">
+            <End Role="Donhangs" EntitySet="Donhangs" />
+            <End Role="Chitietdonhangs" EntitySet="Chitietdonhangs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Chitietdonhangs_dbo_Sachs_masach" Association="Self.FK_dbo_Chitietdonhangs_dbo_Sachs_masach">
+            <End Role="Sachs" EntitySet="Sachs" />
+            <End Role="Chitietdonhangs" EntitySet="Chitietdonhangs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Donhangs_dbo_Khachhangs_Khachhang_makh" Association="Self.FK_dbo_Donhangs_dbo_Khachhangs_Khachhang_makh">
+            <End Role="Khachhangs" EntitySet="Khachhangs" />
+            <End Role="Donhangs" EntitySet="Donhangs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Sachs_dbo_Chudes_machude" Association="Self.FK_dbo_Sachs_dbo_Chudes_machude">
+            <End Role="Chudes" EntitySet="Chudes" />
+            <End Role="Sachs" EntitySet="Sachs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Sachs_dbo_Nhaxuatbans_manxb" Association="Self.FK_dbo_Sachs_dbo_Nhaxuatbans_manxb">
+            <End Role="Nhaxuatbans" EntitySet="Nhaxuatbans" />
+            <End Role="Sachs" EntitySet="Sachs" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="QLBSDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="C__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Chitietdonhang">
+          <Key>
+            <PropertyRef Name="soluong" />
+          </Key>
+          <Property Name="soluong" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="madh" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="masach" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="dongia" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Donhang" Relationship="Self.FK_dbo_Chitietdonhangs_dbo_Donhangs_madh" FromRole="Chitietdonhangs" ToRole="Donhangs" />
+          <NavigationProperty Name="Sach" Relationship="Self.FK_dbo_Chitietdonhangs_dbo_Sachs_masach" FromRole="Chitietdonhangs" ToRole="Sachs" />
+        </EntityType>
+        <EntityType Name="Chude">
+          <Key>
+            <PropertyRef Name="machude" />
+          </Key>
+          <Property Name="machude" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tenchude" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Sachs" Relationship="Self.FK_dbo_Sachs_dbo_Chudes_machude" FromRole="Chudes" ToRole="Sachs" />
+        </EntityType>
+        <EntityType Name="Donhang">
+          <Key>
+            <PropertyRef Name="madh" />
+          </Key>
+          <Property Name="madh" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tinhtrangdonhang" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ngaydat" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ngaygiao" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="makh" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Chitietdonhangs" Relationship="Self.FK_dbo_Chitietdonhangs_dbo_Donhangs_madh" FromRole="Donhangs" ToRole="Chitietdonhangs" />
+          <NavigationProperty Name="Khachhang" Relationship="Self.FK_dbo_Donhangs_dbo_Khachhangs_Khachhang_makh" FromRole="Donhangs" ToRole="Khachhangs" />
+        </EntityType>
+        <EntityType Name="Khachhang">
+          <Key>
+            <PropertyRef Name="makh" />
+          </Key>
+          <Property Name="makh" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tenkh" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="taikhoan" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="matkhau" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="diachi" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="dienthoai" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Donhangs" Relationship="Self.FK_dbo_Donhangs_dbo_Khachhangs_Khachhang_makh" FromRole="Khachhangs" ToRole="Donhangs" />
+        </EntityType>
+        <EntityType Name="Nhaxuatban">
+          <Key>
+            <PropertyRef Name="manxb" />
+          </Key>
+          <Property Name="manxb" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tennxb" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="diachi" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="dienthoai" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Sachs" Relationship="Self.FK_dbo_Sachs_dbo_Nhaxuatbans_manxb" FromRole="Nhaxuatbans" ToRole="Sachs" />
+        </EntityType>
+        <EntityType Name="Sach">
+          <Key>
+            <PropertyRef Name="masach" />
+          </Key>
+          <Property Name="masach" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tensach" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="giaban" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="mota" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="anhbia" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ngaycapnhat" Type="DateTime" Precision="3" />
+          <Property Name="soluongton" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="manxb" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="machude" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Chitietdonhangs" Relationship="Self.FK_dbo_Chitietdonhangs_dbo_Sachs_masach" FromRole="Sachs" ToRole="Chitietdonhangs" />
+          <NavigationProperty Name="Chude" Relationship="Self.FK_dbo_Sachs_dbo_Chudes_machude" FromRole="Sachs" ToRole="Chudes" />
+          <NavigationProperty Name="Nhaxuatban" Relationship="Self.FK_dbo_Sachs_dbo_Nhaxuatbans_manxb" FromRole="Sachs" ToRole="Nhaxuatbans" />
+        </EntityType>
+        <EntityType Name="Tacgia">
+          <Key>
+            <PropertyRef Name="matacgia" />
+          </Key>
+          <Property Name="matacgia" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tentacgia" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="diachi" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="dienthoai" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_dbo_Chitietdonhangs_dbo_Donhangs_madh">
+          <End Role="Donhangs" Type="Self.Donhang" Multiplicity="0..1" />
+          <End Role="Chitietdonhangs" Type="Self.Chitietdonhang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Donhangs">
+              <PropertyRef Name="madh" />
+            </Principal>
+            <Dependent Role="Chitietdonhangs">
+              <PropertyRef Name="madh" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Chitietdonhangs_dbo_Sachs_masach">
+          <End Role="Sachs" Type="Self.Sach" Multiplicity="0..1" />
+          <End Role="Chitietdonhangs" Type="Self.Chitietdonhang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sachs">
+              <PropertyRef Name="masach" />
+            </Principal>
+            <Dependent Role="Chitietdonhangs">
+              <PropertyRef Name="masach" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Sachs_dbo_Chudes_machude">
+          <End Role="Chudes" Type="Self.Chude" Multiplicity="0..1" />
+          <End Role="Sachs" Type="Self.Sach" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Chudes">
+              <PropertyRef Name="machude" />
+            </Principal>
+            <Dependent Role="Sachs">
+              <PropertyRef Name="machude" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Donhangs_dbo_Khachhangs_Khachhang_makh">
+          <End Role="Khachhangs" Type="Self.Khachhang" Multiplicity="0..1" />
+          <End Role="Donhangs" Type="Self.Donhang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Khachhangs">
+              <PropertyRef Name="makh" />
+            </Principal>
+            <Dependent Role="Donhangs">
+              <PropertyRef Name="makh" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Sachs_dbo_Nhaxuatbans_manxb">
+          <End Role="Nhaxuatbans" Type="Self.Nhaxuatban" Multiplicity="0..1" />
+          <End Role="Sachs" Type="Self.Sach" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Nhaxuatbans">
+              <PropertyRef Name="manxb" />
+            </Principal>
+            <Dependent Role="Sachs">
+              <PropertyRef Name="manxb" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="QLBSDbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
+          <EntitySet Name="Chitietdonhangs" EntityType="Self.Chitietdonhang" />
+          <EntitySet Name="Chudes" EntityType="Self.Chude" />
+          <EntitySet Name="Donhangs" EntityType="Self.Donhang" />
+          <EntitySet Name="Khachhangs" EntityType="Self.Khachhang" />
+          <EntitySet Name="Nhaxuatbans" EntityType="Self.Nhaxuatban" />
+          <EntitySet Name="Sachs" EntityType="Self.Sach" />
+          <EntitySet Name="Tacgias" EntityType="Self.Tacgia" />
+          <AssociationSet Name="FK_dbo_Chitietdonhangs_dbo_Donhangs_madh" Association="Self.FK_dbo_Chitietdonhangs_dbo_Donhangs_madh">
+            <End Role="Donhangs" EntitySet="Donhangs" />
+            <End Role="Chitietdonhangs" EntitySet="Chitietdonhangs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Chitietdonhangs_dbo_Sachs_masach" Association="Self.FK_dbo_Chitietdonhangs_dbo_Sachs_masach">
+            <End Role="Sachs" EntitySet="Sachs" />
+            <End Role="Chitietdonhangs" EntitySet="Chitietdonhangs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Sachs_dbo_Chudes_machude" Association="Self.FK_dbo_Sachs_dbo_Chudes_machude">
+            <End Role="Chudes" EntitySet="Chudes" />
+            <End Role="Sachs" EntitySet="Sachs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Donhangs_dbo_Khachhangs_Khachhang_makh" Association="Self.FK_dbo_Donhangs_dbo_Khachhangs_Khachhang_makh">
+            <End Role="Khachhangs" EntitySet="Khachhangs" />
+            <End Role="Donhangs" EntitySet="Donhangs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Sachs_dbo_Nhaxuatbans_manxb" Association="Self.FK_dbo_Sachs_dbo_Nhaxuatbans_manxb">
+            <End Role="Nhaxuatbans" EntitySet="Nhaxuatbans" />
+            <End Role="Sachs" EntitySet="Sachs" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="QLBSDbModelStoreContainer" CdmEntityContainer="QLBSDbEntities">
+          <EntitySetMapping Name="C__MigrationHistory">
+            <EntityTypeMapping TypeName="QLBSDbModel.C__MigrationHistory">
+              <MappingFragment StoreEntitySet="__MigrationHistory">
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Chitietdonhangs">
+            <EntityTypeMapping TypeName="QLBSDbModel.Chitietdonhang">
+              <MappingFragment StoreEntitySet="Chitietdonhangs">
+                <ScalarProperty Name="soluong" ColumnName="soluong" />
+                <ScalarProperty Name="madh" ColumnName="madh" />
+                <ScalarProperty Name="masach" ColumnName="masach" />
+                <ScalarProperty Name="dongia" ColumnName="dongia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Chudes">
+            <EntityTypeMapping TypeName="QLBSDbModel.Chude">
+              <MappingFragment StoreEntitySet="Chudes">
+                <ScalarProperty Name="machude" ColumnName="machude" />
+                <ScalarProperty Name="tenchude" ColumnName="tenchude" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Donhangs">
+            <EntityTypeMapping TypeName="QLBSDbModel.Donhang">
+              <MappingFragment StoreEntitySet="Donhangs">
+                <ScalarProperty Name="madh" ColumnName="madh" />
+                <ScalarProperty Name="tinhtrangdonhang" ColumnName="tinhtrangdonhang" />
+                <ScalarProperty Name="ngaydat" ColumnName="ngaydat" />
+                <ScalarProperty Name="ngaygiao" ColumnName="ngaygiao" />
+                <ScalarProperty Name="makh" ColumnName="makh" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Khachhangs">
+            <EntityTypeMapping TypeName="QLBSDbModel.Khachhang">
+              <MappingFragment StoreEntitySet="Khachhangs">
+                <ScalarProperty Name="makh" ColumnName="makh" />
+                <ScalarProperty Name="tenkh" ColumnName="tenkh" />
+                <ScalarProperty Name="taikhoan" ColumnName="taikhoan" />
+                <ScalarProperty Name="matkhau" ColumnName="matkhau" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="diachi" ColumnName="diachi" />
+                <ScalarProperty Name="dienthoai" ColumnName="dienthoai" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Nhaxuatbans">
+            <EntityTypeMapping TypeName="QLBSDbModel.Nhaxuatban">
+              <MappingFragment StoreEntitySet="Nhaxuatbans">
+                <ScalarProperty Name="manxb" ColumnName="manxb" />
+                <ScalarProperty Name="tennxb" ColumnName="tennxb" />
+                <ScalarProperty Name="diachi" ColumnName="diachi" />
+                <ScalarProperty Name="dienthoai" ColumnName="dienthoai" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sachs">
+            <EntityTypeMapping TypeName="QLBSDbModel.Sach">
+              <MappingFragment StoreEntitySet="Sachs">
+                <ScalarProperty Name="masach" ColumnName="masach" />
+                <ScalarProperty Name="tensach" ColumnName="tensach" />
+                <ScalarProperty Name="giaban" ColumnName="giaban" />
+                <ScalarProperty Name="mota" ColumnName="mota" />
+                <ScalarProperty Name="anhbia" ColumnName="anhbia" />
+                <ScalarProperty Name="ngaycapnhat" ColumnName="ngaycapnhat" />
+                <ScalarProperty Name="soluongton" ColumnName="soluongton" />
+                <ScalarProperty Name="manxb" ColumnName="manxb" />
+                <ScalarProperty Name="machude" ColumnName="machude" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tacgias">
+            <EntityTypeMapping TypeName="QLBSDbModel.Tacgia">
+              <MappingFragment StoreEntitySet="Tacgias">
+                <ScalarProperty Name="matacgia" ColumnName="matacgia" />
+                <ScalarProperty Name="tentacgia" ColumnName="tentacgia" />
+                <ScalarProperty Name="diachi" ColumnName="diachi" />
+                <ScalarProperty Name="dienthoai" ColumnName="dienthoai" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

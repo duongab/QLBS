@@ -6,6 +6,7 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/ckeditor")
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -21,13 +22,13 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
 
-                    <li>@Html.ActionLink("Sách", "Index", "SachesController ")</li>
-                    <li>@Html.ActionLink("Khách hàng", "Index", "KhachhangsController ")</li>
-                    <li>@Html.ActionLink("Nhà xuất bản ", "Index", "NhaxuatbansController  ")</li>
-                    <li>@Html.ActionLink("Tác giả  ", "Index", "TacgiasController  ")</li>
-                    <li>@Html.ActionLink("Chủ đề", "Index", "ChudesController  ")</li>
-                    <li>@Html.ActionLink("Đơn hàng ", "Index", "DonhangsController ")</li>
-                    <li>@Html.ActionLink("Chi tiết đơn hàng", "Index", "ChitietdonhangsController ")</li>
+                    <li>@Html.ActionLink("Sách", "Index", "Saches")</li>
+                    <li>@Html.ActionLink("Khách hàng", "Index", "Khachhangs")</li>
+                    <li>@Html.ActionLink("Nhà xuất bản ", "Index", "Nhaxuatbans")</li>
+                    <li>@Html.ActionLink("Tác giả  ", "Index", "Tacgias")</li>
+                    <li>@Html.ActionLink("Chủ đề", "Index", "Chudes")</li>
+                    <li>@Html.ActionLink("Đơn hàng ", "Index", "Donhangs")</li>
+                    <li>@Html.ActionLink("Chi tiết đơn hàng", "Index", "Chitietdonhangs")</li>
                 </ul>
             </div>
         </div>

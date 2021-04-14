@@ -51,7 +51,7 @@ namespace QLBS.Controllers
             if (ModelState.IsValid)
             {
                 db.Saches.Add(sach);
-                db.SaveChanges();
+                _ = db.SaveChanges();
                 return RedirectToAction("Index");
             }
 

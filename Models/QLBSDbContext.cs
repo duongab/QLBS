@@ -2,6 +2,7 @@ using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Linq;
+using System.Web.Mvc;
 
 namespace QLBS.Models
 {
@@ -11,7 +12,7 @@ namespace QLBS.Models
             : base("name=QLBSDbContext")
         {
         }
-
+       
         public virtual DbSet<Sach> Saches { get; set; }
         public virtual DbSet<Khachhang> Khachhangs { get; set; }
 
